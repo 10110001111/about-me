@@ -73,78 +73,151 @@ Location: Cyber Defense Operations
 [SECURITY TOOLS]
 ├── IDS/IPS         ████████████████████ 95%
 ├── SIEM            ███████████████████░ 90%
+├── EDR/XDR         ███████████████████░ 90%
 ├── Wireshark       ████████████████████ 95%
 ├── Nmap            ████████████████████ 95%
 ├── Metasploit      ██████████████████░░ 85%
 └── Burp Suite      ███████████████████░ 90%
 
-[CLOUD PLATFORMS]
+[CLOUD SECURITY]
 ├── AWS             ███████████████████░ 90%
 ├── Azure           ██████████████████░░ 85%
-└── GCP             ██████████████████░░ 85%
+├── GCP             ██████████████████░░ 85%
+└── CSPM            ██████████████████░░ 85%
+
+[ZERO TRUST & SASE]
+├── Zscaler         ███████████████████░ 90%
+├── Cloudflare ZT   ██████████████████░░ 85%
+└── ZTNA            ███████████████████░ 90%
+
+[DEVSECOPS & AUTOMATION]
+├── Terraform       ███████████████████░ 90%
+├── Ansible         ██████████████████░░ 85%
+└── Kubernetes Sec  ██████████████████░░ 85%
+
+[THREAT INTELLIGENCE]
+├── MITRE ATT&CK    ████████████████████ 95%
+├── MISP            ██████████████████░░ 85%
+└── Threat Hunting  ███████████████████░ 90%
+
+[VULNERABILITY MANAGEMENT]
+├── Tenable/Nessus  ███████████████████░ 90%
+├── Qualys          ██████████████████░░ 85%
+└── Rapid7          ██████████████████░░ 85%
 `,
   domains: () => `
 OPERATIONAL DOMAINS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[🔒 NETWORK WARFARE]
-  ✓ Software-Defined Networking
-  ✓ Network Segmentation & Isolation
-  ✓ Zero Trust Architecture
+[🔒 NETWORK SECURITY]
+  ✓ Software-Defined Networking (SDN)
+  ✓ Network Segmentation & Microsegmentation
+  ✓ Zero Trust Network Access (ZTNA)
+  ✓ SASE Architecture (Zscaler, Cloudflare)
+  ✓ SD-WAN Security
   ✓ Infrastructure Automation
 
-[☁️ CLOUD BATTLEGROUND]
-  ✓ AWS Security Architecture
-  ✓ Azure Cloud Infrastructure
-  ✓ GCP Resource Management
+[☁️ CLOUD SECURITY]
+  ✓ AWS Security Hub, GuardDuty, Inspector
+  ✓ Azure Defender & Sentinel
+  ✓ GCP Security Command Center
+  ✓ Cloud Security Posture Management (CSPM)
+  ✓ Container & Kubernetes Security
   ✓ Multi-Cloud Security Posture
 
-[🛡️ CYBER DEFENSE]
-  ✓ Threat Hunting & Intelligence
-  ✓ Intrusion Detection Systems
-  ✓ Incident Response Protocols
-  ✓ Security Operations Center
+[🛡️ THREAT OPERATIONS]
+  ✓ Threat Hunting & Intelligence (MITRE ATT&CK)
+  ✓ SIEM: Splunk, Microsoft Sentinel, QRadar
+  ✓ EDR/XDR: CrowdStrike Falcon, SentinelOne
+  ✓ Incident Response & Digital Forensics
+  ✓ Security Operations Center (SOC)
+  ✓ Vulnerability Management (Tenable, Qualys)
 
-[🔐 CRYPTOGRAPHIC OPERATIONS]
+[🔐 IDENTITY & ACCESS]
+  ✓ Zero Trust Identity (Okta, Entra ID)
+  ✓ Privileged Access Management (PAM)
   ✓ PKI Implementation
-  ✓ Encryption Standards
+  ✓ MFA & Passwordless Auth
   ✓ Secure Key Management
-  ✓ Protocol Analysis
+
+[⚙️ DEVSECOPS]
+  ✓ Infrastructure as Code (Terraform, Ansible)
+  ✓ CI/CD Pipeline Security
+  ✓ Container Security (Falco, OPA)
+  ✓ Secrets Management (HashiCorp Vault)
+  ✓ Security Automation & Orchestration (SOAR)
 
 [🤖 AI & MACHINE LEARNING]
   ✓ ML-Driven Threat Detection
   ✓ Automated Security Analysis
-  ✓ Behavioral Analytics
+  ✓ Behavioral Analytics & UEBA
   ✓ Predictive Security Models
 `,
   arsenal: () => `
 class SecurityEngineer:
     def __init__(self):
         self.network_gear = [
-            'Cisco IOS/IOS-XE',
+            'Cisco IOS/IOS-XE/NX-OS',
             'Juniper Junos',
             'Palo Alto PAN-OS',
-            'Fortinet FortiOS'
+            'Fortinet FortiOS',
+            'Check Point NGFW',
+            'Cisco Firepower (FTD)'
         ]
 
-        self.security_tools = [
-            'IDS/IPS Systems',
-            'SIEM Platforms',
-            'Next-Gen Firewalls',
-            'VPN Solutions'
+        self.sase_zero_trust = [
+            'Zscaler Internet Access (ZIA)',
+            'Zscaler Private Access (ZPA)',
+            'Cloudflare Zero Trust',
+            'Okta Identity Platform',
+            'Microsoft Entra ID'
         ]
 
-        self.cloud_platforms = [
-            'Amazon Web Services',
-            'Microsoft Azure',
-            'Google Cloud Platform'
+        self.siem_soc = [
+            'Splunk Enterprise Security',
+            'Microsoft Sentinel',
+            'IBM QRadar',
+            'Elastic SIEM',
+            'Sumo Logic'
+        ]
+
+        self.edr_xdr = [
+            'CrowdStrike Falcon',
+            'SentinelOne Singularity',
+            'Microsoft Defender XDR',
+            'Palo Alto Cortex XDR'
+        ]
+
+        self.cloud_security = [
+            'AWS Security Hub & GuardDuty',
+            'Azure Defender for Cloud',
+            'GCP Security Command Center',
+            'Wiz Cloud Security Platform',
+            'Palo Alto Prisma Cloud'
+        ]
+
+        self.vuln_management = [
+            'Tenable Nessus / Tenable.io',
+            'Qualys VMDR',
+            'Rapid7 InsightVM'
+        ]
+
+        self.devsecops = [
+            'Terraform - Infrastructure as Code',
+            'Ansible - Configuration Automation',
+            'HashiCorp Vault - Secrets Management',
+            'Falco - Container Runtime Security',
+            'OPA/Gatekeeper - Policy Enforcement'
         ]
 
         self.pentesting_kit = [
             'Wireshark - Network Protocol Analyzer',
             'Nmap - Network Scanner',
             'Metasploit - Exploitation Framework',
-            'Burp Suite - Web Security Testing'
+            'Burp Suite - Web Security Testing',
+            'BloodHound - AD Attack Path Analysis',
+            'Nuclei - Vulnerability Scanner',
+            'Zeek - Network Analysis Framework'
         ]
 
         self.languages = [
