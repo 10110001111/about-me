@@ -130,18 +130,47 @@ body {
   color: #008800;
 }
 
+.terminal-hint-mobile {
+  display: none;
+}
+
+.terminal-input-hidden {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px; /* Prevents iOS Safari zoom on focus */
+}
+
 @media (max-width: 768px) {
   .terminal-container {
     padding: 0.5rem;
   }
-  
+
   .terminal-screen {
     padding: 1rem;
     font-size: 0.875rem;
   }
-  
+
   .terminal-output,
   .terminal-error {
     font-size: 0.75rem;
+  }
+
+  .terminal-hint-desktop {
+    display: none;
+  }
+
+  .terminal-hint-mobile {
+    display: block;
   }
 }

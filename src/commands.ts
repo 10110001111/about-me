@@ -1,15 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './App.css';
+export type Command = () => string;
+export type Commands = Record<string, Command>;
 
-function App() {
-  const [input, setInput] = useState('');
-  const [history, setHistory] = useState([]);
-  const [commandHistory, setCommandHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const terminalRef = useRef(null);
-  const containerRef = useRef(null);
-
-  const ASCII_ART = `
+export const ASCII_ART = `
 ╔═══════════════════════════════════════════════════════════════════════════╗
 ║                                                                           ║
 ║     ██╗    ██╗ █████╗ ███████╗██╗                                         ║
@@ -25,8 +17,8 @@ function App() {
 ║                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════╝`;
 
-  const commands = {
-    help: () => `
+export const commands: Commands = {
+  help: () => `
 Available commands:
   help        - Show this help message
   about       - Display information about Wasi
@@ -40,7 +32,7 @@ Available commands:
   clear       - Clear terminal screen
   exit        - Close terminal session
 `,
-    about: () => `
+  about: () => `
 NETWORK SECURITY ENGINEER
 
 Current Role:
@@ -52,7 +44,7 @@ and building secure systems that stand against modern threats.
 Mission: Design and implement enterprise-level security solutions
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `,
-    whoami: () => `
+  whoami: () => `
 root@wasi:~$ id
 uid=0(wasi) gid=0(security) groups=0(security),1(network),2(cloud)
 
@@ -62,7 +54,7 @@ Clearance: PUBLIC
 Status: ACTIVE
 Location: Cyber Defense Operations
 `,
-    skills: () => `
+  skills: () => `
 ╔═══════════════════════════════════════════════════════════════╗
 ║                    TECHNICAL PROFICIENCIES                    ║
 ╚═══════════════════════════════════════════════════════════════╝
@@ -91,7 +83,7 @@ Location: Cyber Defense Operations
 ├── Azure           ██████████████████░░ 85%
 └── GCP             ██████████████████░░ 85%
 `,
-    domains: () => `
+  domains: () => `
 OPERATIONAL DOMAINS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -125,7 +117,7 @@ OPERATIONAL DOMAINS
   ✓ Behavioral Analytics
   ✓ Predictive Security Models
 `,
-    arsenal: () => `
+  arsenal: () => `
 class SecurityEngineer:
     def __init__(self):
         self.network_gear = [
@@ -134,65 +126,65 @@ class SecurityEngineer:
             'Palo Alto PAN-OS',
             'Fortinet FortiOS'
         ]
-        
+
         self.security_tools = [
             'IDS/IPS Systems',
             'SIEM Platforms',
             'Next-Gen Firewalls',
             'VPN Solutions'
         ]
-        
+
         self.cloud_platforms = [
             'Amazon Web Services',
             'Microsoft Azure',
             'Google Cloud Platform'
         ]
-        
+
         self.pentesting_kit = [
             'Wireshark - Network Protocol Analyzer',
             'Nmap - Network Scanner',
             'Metasploit - Exploitation Framework',
             'Burp Suite - Web Security Testing'
         ]
-        
+
         self.languages = [
             'Python - Automation & Scripting',
             'Bash - System Administration',
             'PowerShell - Windows Management'
         ]
-    
+
     def deploy_security(self):
         return "🟢 Maximum protection enabled"
 
 >>> SecurityEngineer().deploy_security()
 '🟢 Maximum protection enabled'
 `,
-    collaborate: () => `
+  collaborate: () => `
 COLLABORATION PROTOCOLS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 seeking_partners_for:
-  
+
   advanced_networking:
     - Software-Defined Networking (SDN)
     - Network automation and orchestration
     - Infrastructure as Code (IaC)
-  
+
   cloud_security:
     - Multi-cloud architecture & security
     - Cloud-native security solutions
     - Container and Kubernetes security
-  
+
   ai_security:
     - ML-driven threat detection
     - Automated incident response
     - Behavioral analytics
-  
+
   cryptography:
     - Next-gen encryption protocols
     - Post-quantum cryptography
     - Secure communication systems
-  
+
   red_team:
     - Offensive security operations
     - Penetration testing frameworks
@@ -201,7 +193,7 @@ seeking_partners_for:
 Status: OPEN FOR COLLABORATION
 Priority: HIGH
 `,
-    contact: () => `
+  contact: () => `
 ╔═══════════════════════════════════════════════════════════════╗
 ║                    SECURE COMMUNICATION CHANNEL               ║
 ╚═══════════════════════════════════════════════════════════════╝
@@ -221,7 +213,7 @@ GitHub Profile:
 [LATENCY: <10ms]
 [SECURITY LEVEL: MAXIMUM]
 `,
-    stats: () => `
+  stats: () => `
 SYSTEM STATISTICS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -238,150 +230,12 @@ Available metrics:
 [REAL-TIME MONITORING: ENABLED]
 [DATA REFRESH RATE: LIVE]
 `,
-    clear: () => 'CLEAR',
-    exit: () => `
+  clear: () => 'CLEAR',
+  exit: () => `
 [CLOSING SECURE SESSION...]
 [CLEARING SENSITIVE DATA...]
 [DISCONNECTING...]
 
 Session terminated. Refresh page to reconnect.
 `,
-  };
-
-  useEffect(() => {
-    setHistory([
-      { type: 'output', content: ASCII_ART },
-      { type: 'output', content: '\nWelcome to my profile terminal v1.0.0' },
-      { type: 'output', content: 'Type "help" for available commands.\n' }
-    ]);
-  }, []);
-
-  useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-    }
-  }, [history]);
-
-  useEffect(() => {
-    // Focus the container on mount
-    if (containerRef.current) {
-      containerRef.current.focus();
-    }
-  }, []);
-
-  const handleCommand = (cmd) => {
-    const trimmedCmd = cmd.trim().toLowerCase();
-    
-    setHistory(prev => [...prev, { type: 'input', content: cmd }]);
-    setCommandHistory(prev => [...prev, cmd]);
-    setHistoryIndex(-1);
-
-    if (trimmedCmd === '') return;
-
-    if (trimmedCmd === 'clear') {
-      setHistory([]);
-      return;
-    }
-
-    if (commands[trimmedCmd]) {
-      const output = commands[trimmedCmd]();
-      if (output === 'CLEAR') {
-        setHistory([]);
-      } else {
-        setHistory(prev => [...prev, { type: 'output', content: output }]);
-      }
-    } else {
-      setHistory(prev => [...prev, { 
-        type: 'error', 
-        content: `Command not found: ${trimmedCmd}\nType 'help' for available commands.` 
-      }]);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (input.trim()) {
-        handleCommand(input);
-        setInput('');
-      }
-    } else if (e.key === 'Backspace') {
-      e.preventDefault();
-      setInput(prev => prev.slice(0, -1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (commandHistory.length > 0) {
-        const newIndex = historyIndex === -1 
-          ? commandHistory.length - 1 
-          : Math.max(0, historyIndex - 1);
-        setHistoryIndex(newIndex);
-        setInput(commandHistory[newIndex]);
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (historyIndex !== -1) {
-        const newIndex = historyIndex + 1;
-        if (newIndex >= commandHistory.length) {
-          setHistoryIndex(-1);
-          setInput('');
-        } else {
-          setHistoryIndex(newIndex);
-          setInput(commandHistory[newIndex]);
-        }
-      }
-    } else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
-      e.preventDefault();
-      setInput(prev => prev + e.key);
-    }
-  };
-
-  return (
-    <div className="terminal-container">
-      <div className="terminal-wrapper">
-        <div 
-          ref={terminalRef}
-          className="terminal-screen"
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-          onClick={() => containerRef.current?.focus()}
-        >
-          <div ref={containerRef} tabIndex={-1} style={{ outline: 'none' }}>
-            {history.map((item, index) => (
-              <div key={index} className="terminal-line">
-                {item.type === 'input' && (
-                  <div className="terminal-input-line">
-                    <span className="terminal-prompt">root@wasi:~$</span>
-                    <span className="terminal-input-text">{item.content}</span>
-                  </div>
-                )}
-                {item.type === 'output' && (
-                  <pre className="terminal-output">
-                    {item.content}
-                  </pre>
-                )}
-                {item.type === 'error' && (
-                  <pre className="terminal-error">
-                    {item.content}
-                  </pre>
-                )}
-              </div>
-            ))}
-            
-            <div className="terminal-input-line terminal-input-container">
-              <span className="terminal-prompt">root@wasi:~$</span>
-              <span className="terminal-input-mirror">{input}</span>
-              <span className="terminal-cursor">▊</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="terminal-footer">
-          <p>Wasi</p>
-          <p className="terminal-hint">Press ↑/↓ to navigate command history | Press Enter to execute</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+};
